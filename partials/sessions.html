@@ -1,0 +1,22 @@
+<div>
+  <h1>CiviCon 2014 Sessions</h1>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Role</th>
+      <th>Room</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="session in sessions" ng-class-even="'even-row'" ng-class-odd="'odd-row'">
+    <td>{{session.title}}</td>
+    <td>{{session.description}}</td>
+    <td>{{session.role}}</td>
+    <td>{{session.room}}</td>
+  </tr>
+  </tbody>
+</table>
