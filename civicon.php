@@ -110,9 +110,24 @@ function civicon_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 /**
  * @param $angularModule
  */
-function angularex_civicrm_angularModules(&$angularModule) {
-  $angularModule['example'] = array(
+function civicon_civicrm_angularModules(&$angularModule) {
+  $angularModule['civiconApp'] = array(
     'ext' => 'com.robinmitra.sessions.civicon',
     'js'  => array('js/app.js')
+  );
+}
+
+/**
+ * Implementation of hook_civicrm_entityTypes
+ *
+ * This has been used here for registering entities
+ *
+ * @param $entityTypes
+ */
+function civicon_civicrm_entityTypes(&$entityTypes) {
+  $entityTypes[] = array(
+    'name'  => 'CiviconSession',
+    'class' => 'CRM_Civicon_DAO_CiviconSession',
+    'table' => 'civicrm_civiconsession'
   );
 }
