@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+    <base>CRM/Civicon</base>
+    <class>CiviconSession</class>
+    <name>civicrm_civiconsession</name>
+    <comment>CiviCon Sessions</comment>
+    <add>4.5</add>
+    <log>true</log>
+
+    <field>
+        <name>id</name>
+        <type>int unsigned</type>
+        <required>true</required>
+        <comment>Unique ID of a Session</comment>
+        <add>4.5</add>
+    </field>
+    <primaryKey>
+        <name>id</name>
+        <autoincrement>true</autoincrement>
+    </primaryKey>
+
+    <field>
+        <name>title</name>
+        <type>varchar</type>
+        <length>64</length>
+        <title>Title</title>
+        <comment>Title of the session</comment>
+        <add>4.5</add>
+    </field>
+    <field>
+        <name>description</name>
+        <type>text</type>
+        <title>Description</title>
+        <comment>Description of the session</comment>
+        <add>4.5</add>
+    </field>
+
+    <field>
+        <name>role</name>
+        <type>varchar</type>
+        <length>64</length>
+        <title>Role</title>
+        <comment>Role the session if appropriate for</comment>
+        <add>4.5</add>
+    </field>
+    <field>
+        <name>room</name>
+        <type>varchar</type>
+        <length>64</length>
+        <title>Room</title>
+        <comment>Room where the sesion will take place</comment>
+        <add>4.5</add>
+    </field>
+</table>
