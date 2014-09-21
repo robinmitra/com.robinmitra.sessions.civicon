@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<extension key="com.robinmitra.sessions.civicon" type="module">
+  <file>civicon</file>
+  <name>CiviCon 2014 - AngularJS Session</name>
+  <description>This module was built for the AngularJS session at CiviCon 2014. It's meant to help understand how to use AngularJS in a CiviCRM module, and perform persistent CRUD operations using the CiviCRM API.</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Robin Mitra</author>
+    <email>robinmitra1@gmail.com</email>
+  </maintainer>
+  <releaseDate>2014-09-21</releaseDate>
+  <version>0.1</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>4.5</ver>
+  </compatibility>
+  <comments>This module is for learning purposes only.</comments>
+  <civix>
+    <namespace>CRM/Civicon</namespace>
+  </civix>
+</extension>
