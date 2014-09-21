@@ -106,3 +106,13 @@ function civicon_civicrm_caseTypes(&$caseTypes) {
 function civicon_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _civicon_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
+
+/**
+ * @param $angularModule
+ */
+function angularex_civicrm_angularModules(&$angularModule) {
+  $angularModule['example'] = array(
+    'ext' => 'com.robinmitra.sessions.civicon',
+    'js'  => array('js/app.js')
+  );
+}
