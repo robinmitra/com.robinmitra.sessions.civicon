@@ -28,24 +28,23 @@
         }
     ]);
 
-    // Sessions Listing Controller
-    app.controller('SessionsListingCtrl', ['$scope', '$http', '$log',
-        function ($scope, $http, $log) {
-            var data = {
-                entity: 'CiviconSession',
-                action: 'get',
-                sequential: 1,
-                json: 1
-            };
-
-            var serialisedData = $.param(data);
-
-            var headers = {'Content-type': 'application/x-www-form-urlencoded'};
-
-            // Send an AJAX request to retrieve all sessions
-            $http.post('/civicrm/ajax/rest', serialisedData, {headers: headers})
+    /**
+     * Controller to create a listing of sessions
+     *
+     * @ngdoc controller
+     * @name SessionsListingCtrl
+     */
+    app.controller('SessionsListingCtrl', ['$scope', '$http', '$log', 'CiviApiFactory',
+        /**
+         * @param $scope
+         * @param $http
+         * @param $log
+         * @param {CiviApiFactory} CiviApi
+         */
+        function ($scope, $http, $log, CiviApi) {
+            CiviApi.get('CiviconSession')
                 .success(function (response) {
-                    // save the array of sessions retrieved on the $scope in order to make it accessible in the view
+                    // Save the array of sessions retrieved on the $scope in order to make it accessible in the view
                     $scope.sessions = response.values;
                 })
                 .error(function (response) {
@@ -54,7 +53,7 @@
                     CRM.alert('Oops! Something went wrong!', '', 'error');
                 });
 
-            /**
+           /**
              * Delete a session
              *
              * @name deleteSession
@@ -63,15 +62,7 @@
             $scope.deleteSession = function (index) {
                 var data = $scope.sessions[index];
 
-                data.entity = 'CiviconSession';
-                data.action = 'delete';
-                data.json = 1;
-
-                var serialisedData = $.param(data);
-
-                var headers = {'Content-type': 'application/x-www-form-urlencoded'};
-
-                $http.post('/civicrm/ajax/rest', serialisedData, {headers: headers})
+                CiviApi.remove('CiviconSession', data)
                     .success(function (response) {
                         $scope.sessions.splice(index, 1); // remove the session from the listing view
                         CRM.alert('Session deleted', '', 'success');
@@ -86,32 +77,26 @@
     /**
      * Sessions edit controller
      */
-    app.controller('SessionsEditCtrl', ['$scope', '$http', '$log', '$location', '$routeParams',
-        function ($scope, $http, $log, $location, $routeParams) {
+    app.controller('SessionsEditCtrl', ['$scope', '$http', '$log', '$location', '$routeParams', 'CiviApiFactory',
+        /**
+         * @param $scope
+         * @param $http
+         * @param $log
+         * @param $location
+         * @param $routeParams
+         * @param {CiviApiFactory} CiviApi
+         */
+        function ($scope, $http, $log, $location, $routeParams, CiviApi) {
             // If session ID exists in the URL, try to retrieve it in order to populate the edit view
             if ($routeParams.id) {
-                var data = {
-                    entity: 'CiviconSession',
-                    action: 'get',
-                    sequential: 1,
-                    json: 1,
-                    id: $routeParams.id
-                };
-
-                var serialisedData = $.param(data);
-
-                var headers = {'Content-type': 'application/x-www-form-urlencoded'};
-
-                // Send the AJAX request to retrieve the session
-                $http.post('/civicrm/ajax/rest', serialisedData, {headers: headers})
+                CiviApi.get('CiviconSession', {id: $routeParams.id})
                     .success(function (response) {
                         $scope.session = response.values[0];
                     })
                     .error(function (response) {
                         CRM.alert('No session exists with the provided ID!', '', 'error');
                         $location.path('/civicon'); // redirect to the listing
-                    })
-                ;
+                    });
             }
 
             /**
@@ -122,20 +107,75 @@
             $scope.addSession = function () {
                 var data = $scope.session;
 
-                data.entity = 'CiviconSession';
-                data.action = 'create';
+                CiviApi.create('CiviconSession', data)
+                    .success(function (response) {
+                        CRM.alert('Session saved', '', 'success');
+                        $location.path('/civicon'); // redirect to the listing
+                    });
+            };
+        }
+    ]);
+
+    /**
+     * @ngdoc service
+     * @name CiviApiFactory
+     */
+    app.factory('CiviApiFactory', ['$http',
+        function ($http) {
+            /**
+             * Retrieve record(s)
+             *
+             * @name CiviApiFactory#get
+             */
+            var get = function (entity, data) {
+                return post(entity, data, 'get');
+            };
+
+            /**
+             * Create a record
+             *
+             * @name CiviApiFactory#create
+             */
+            var create = function (entity, data) {
+                return post(entity, data, 'create');
+            };
+
+            /**
+             * Remove (delete) a record
+             *
+             * @name CiviApiFactory#remove
+             */
+            var remove = function (entity, data) {
+                return post(entity, data, 'delete');
+            };
+
+            /**
+             * Send the POST HTTP request to the CiviCRM API
+             *
+             * @name CiviApiFactory#post
+             * @private
+             */
+            var post = function (entity, data, action) {
+                // If data is not provided, initialise it to an empty object
+                data = data || {};
+
+                data.entity = entity;
+                data.action = action;
                 data.json = 1;
+                data.sequential = 1;
 
                 var serialisedData = $.param(data);
 
                 var headers = {'Content-type': 'application/x-www-form-urlencoded'};
 
-                // Send the AJAX request to save the session
-                $http.post('/civicrm/ajax/rest', serialisedData, {headers: headers})
-                    .success(function (response) {
-                        CRM.alert('Session saved', '', 'success');
-                        $location.path('/civicon'); // redirect to the listing
-                    });
+                // Send an AJAX request to retrieve all sessions
+                return $http.post('/civicrm/ajax/rest', serialisedData, {headers: headers});
+            };
+
+            return {
+                get: get,
+                create: create,
+                remove: remove
             };
         }
     ]);
