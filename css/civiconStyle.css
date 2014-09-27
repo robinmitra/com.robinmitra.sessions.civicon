@@ -1,0 +1,31 @@
+.crm-container .crm-form-block {
+    margin: 1rem 0 !important;
+    padding: 1rem;
+    transition: linear 200ms;
+    -webkit-transition: linear 200ms;
+    position: relative;
+    top: 0;
+}
+
+.crm-container p:first-child, .crm-container div:first-child {
+    margin-top: 0;
+}
+
+.crm-container .field-group {
+    margin: 0.5rem 0;
+}
+
+.crm-container .field-group.inline label, .crm-container .field-group.inline .label {
+    width: 20%;
+    float: left;
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.crm-container .field-group label {
+    display: block;
+}
+
+.crm-container .field-group label, .crm-container .field-group .label {
+    margin: 0.5rem 0;
+}

@@ -1,0 +1,33 @@
+<form class="crm-form-block form-layout">
+  <div class="field-group inline clearfix">
+    <label class="label" for="new-session-title">Title</label>
+    <input id="new-session-title" name="new-session-title" type="text"
+           class="form-text big required"
+           ng-model="session.title"/>
+  </div>
+
+  <div class="field-group inline clearfix">
+    <label class="label" for="new-session-description">Description</label>
+    <textarea name="body_html" id="new-session-description" cols="30" rows="3"
+              class="form-textarea"
+              ng-model="session.description"></textarea>
+  </div>
+
+  <div class="field-group inline clearfix">
+    <label class="label" for="new-session-role">Role</label>
+    <input id="new-session-role" name="new-session-role"
+           type="input" ng-model="session.role"/>
+  </div>
+
+  <div class="field-group inline clearfix">
+    <label class="label" for="new-session-room">Room</label>
+    <input id="new-session-room" name="new-session-room" type="text"
+           ng-model="session.room"/>
+  </div>
+
+  <div class="clearfix">
+    <a class="button" href ng-click="addSession()">Save</a>
+    <a class="button" href="#/civicon">Cancel</a>
+  </div>
+
+</form>

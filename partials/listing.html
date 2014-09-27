@@ -1,0 +1,35 @@
+<div>
+  <h1>CiviCon 2014 Sessions</h1>
+
+  <p>
+    <a class="button" ng-href="#/civicon/new"><i class="icon add-icon" style="top: 0;"></i>
+      Add a new Session
+    </a>
+  </p>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Role</th>
+    <th>Room</th>
+    <th style="min-width: 80px">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="session in sessions" ng-class-even="'even-row'"
+      ng-class-odd="'odd-row'">
+    <td>{{session.title}}</td>
+    <td>{{session.description}}</td>
+    <td>{{session.role}}</td>
+    <td>{{session.room}}</td>
+    <td>
+      <a ng-href="#/civicon/{{session.id}}/edit">Edit</a>
+      |
+      <a href ng-click="deleteSession($index)">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>

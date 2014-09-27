@@ -113,7 +113,8 @@ function civicon_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 function civicon_civicrm_angularModules(&$angularModule) {
   $angularModule['civiconApp'] = array(
     'ext' => 'com.robinmitra.sessions.civicon',
-    'js'  => array('js/app.js')
+    'js'  => array('js/app.js'),
+    'css' => array('css/civiconStyle.css')
   );
 }
 
