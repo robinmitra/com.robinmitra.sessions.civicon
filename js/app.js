@@ -1,11 +1,11 @@
 (function (angular, $, _) {
-
+    // Set up the main application module
     var app = angular.module('civiconApp', ['ngRoute']);
 
     // Base URL for resources (e.g. partials)
     var resourceUrl = CRM.resourceUrls['com.robinmitra.sessions.civicon'];
 
-    // Set up route
+    // Set up routes
     app.config(['$routeProvider', '$httpProvider',
         function ($routeProvider, $httpProvider) {
             $routeProvider.when('/civicon', {
@@ -75,7 +75,10 @@
     ]);
 
     /**
-     * Sessions edit controller
+     * Controller for editing a session
+     *
+     * @ngdoc controller
+     * @name SessionsEditCtrl
      */
     app.controller('SessionsEditCtrl', ['$scope', '$http', '$log', '$location', '$routeParams', 'CiviApiFactory',
         /**
@@ -101,7 +104,7 @@
 
             /**
              * Add a new session or update an existing one
-
+             *
              * @name addSession
              */
             $scope.addSession = function () {
@@ -117,14 +120,20 @@
     ]);
 
     /**
+     * A factory to provide helper methods for interacting with the CiviCRM API
+     *
      * @ngdoc service
      * @name CiviApiFactory
      */
     app.factory('CiviApiFactory', ['$http',
+        /**
+         * @param $http
+         */
         function ($http) {
             /**
              * Retrieve record(s)
              *
+             * @ngdoc method
              * @name CiviApiFactory#get
              */
             var get = function (entity, data) {
@@ -134,6 +143,7 @@
             /**
              * Create a record
              *
+             * @ngdoc method
              * @name CiviApiFactory#create
              */
             var create = function (entity, data) {
@@ -143,6 +153,7 @@
             /**
              * Remove (delete) a record
              *
+             * @ngdoc method
              * @name CiviApiFactory#remove
              */
             var remove = function (entity, data) {
@@ -152,6 +163,7 @@
             /**
              * Send the POST HTTP request to the CiviCRM API
              *
+             * @ngdoc function
              * @name CiviApiFactory#post
              * @private
              */
